@@ -1,6 +1,4 @@
-# To-Do-List
-2022 sw 운영보조원 과제 - To-Do-List
-================================
+# 2022 sw 운영보조원 과제 - To-Do-List
 
 # api
 * (post) localhost:port/todo 할일 추가하기
