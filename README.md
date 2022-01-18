@@ -1,4 +1,5 @@
 # 2022 sw 운영보조원 과제 - To-Do-List
+희진, 김준성, 조기연
 
 # api
 * (post) localhost:port/todo 할일 추가하기
