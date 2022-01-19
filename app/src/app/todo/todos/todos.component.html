@@ -1,0 +1,27 @@
+<div class="nav">
+  <ul>
+    <li id="date">{{ today | date:'YY년 M월 d일' }}</li>
+    <li><a href="">MyPage</a></li>
+    <li><a href="">할 일</a></li>
+    <li><a href="">중요</a></li>
+    <li><a href="">로그인/회원가입</a></li>
+  </ul>
+</div>
+
+<div class="container">
+  <div class="title">
+    <h1>할 일</h1>
+    <h3>할 일 {{calTodo()}}개 남음</h3>
+  </div>
+
+  <div class="addTodo">
+    <app-add-todo (onTodoAdded)="addTodo($event)"></app-add-todo>
+  </div>
+
+    <div *ngFor="let todo of todos" class="list">
+      <app-todo [todo]="todo"></app-todo>
+    </div>
+</div>
+
+<!--1. 삭제, 중요 기능 구현하기-->
+<!--2. 할 일 n 개 남음 구현하기-->
