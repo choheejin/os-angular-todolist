@@ -9,10 +9,12 @@ const authRouter = require('./routes/auth');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const {notFound, errorHandler} = require('./errors/handlers');
+const helmet = require('helmet');
 
 // 설정
 dotenv.config();
 const app = express();
+app.use(helmet());
 app.use(cors());
 app.use(morgan('dev')); // 로그
 app.use(express.static(path.join(__dirname, 'public')));
@@ -30,7 +32,9 @@ app.use('/auth', authRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-// 서버 실행
-app.listen(app.get('port'), () => {
-    console.log(app.get('port'), '번 포트에서 대기 중');
-});
+
+// PORT = 8080
+// DB_ADRESS = 'mongodb://localhost/admin'
+// JWT_SECRET = "안녕"
+
+module.exports = app;

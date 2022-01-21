@@ -4,8 +4,7 @@ const connect = () => {
     if(process.env.NODE_ENV !== 'production') {
         mongoose.set('debug', true);
     }
-
-    mongoose.connect('mongodb://wnstjd4778:!sk3693690@127.0.0.1:27017/admin', {
+    mongoose.connect(process.env.DB_ADRESS, {
         useNewUrlParser: true
     }, (error) =>  {
         if(error) {

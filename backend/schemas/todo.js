@@ -48,11 +48,6 @@ todoSchema.static.deleteByTodoId = (todoId) => {
 }
 
 todoSchema.static.today = () => {
-    // const date = new Date();
-    // const year = date.getFullYear();
-    // const month = date.getFullMonth() + 1;
-    // const day = date.getDate();
-    // const today = year + "-" + month + "-" + day;
     return this.find({});
 }
 
