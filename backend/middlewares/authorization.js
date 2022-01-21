@@ -8,7 +8,7 @@ const verifyToken = asyncHandler((req, res, next) => {
         if(!clientToken) {
             return next(LOGIN_REQUIRED);
         }
-        const decode = jwt.verify(clientToken, 'YOUR_SECRET_KEY');
+        const decode = jwt.verify(clientToken, process.env.JWT_SECRET);
         console.log(decode);
         if(decode) {
             res.locals.email = decode.user_email;

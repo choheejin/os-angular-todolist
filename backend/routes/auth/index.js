@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const controller = require('./controller');
 const {verifyToken} = require('../../middlewares/authorization');
-router.post('/signup', controller.checkDuplicatedNickName, controller.checkDuplicatedTel, controller.checkDuplicatedEmail, controller.signUp);
+router.post('/signup', controller.signUp);
 router.post('/signin', controller.signIn);
 router.post('/signup/checkEmail', controller.checkDuplicatedEmail);
 router.post('/signup/checkTel', controller.checkDuplicatedTel);
