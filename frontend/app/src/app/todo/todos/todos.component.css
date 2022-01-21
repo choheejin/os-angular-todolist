@@ -42,9 +42,32 @@
 }
 
 .list{
+  display: flex;
+  justify-content: space-between;
   margin-top: 10px;
   border-bottom: 1px solid gray;
   border-top: 1px solid gray;
   padding: 10px 10px;
   margin-right: 750px;
 }
+
+
+.done {
+  margin-right: 5px;
+
+}
+
+.done label{
+  margin-left: 10px;
+}
+
+.done input:checked + label {
+  text-decoration: line-through;
+}
+
+.checkAll {
+  margin-top: 20px;
+  width: 100px;
+  height: 40px;
+}
+

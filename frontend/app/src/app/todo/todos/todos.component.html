@@ -18,9 +18,13 @@
     <app-add-todo (onTodoAdded)="addTodo($event)"></app-add-todo>
   </div>
 
-    <div *ngFor="let todo of todos" class="list">
-      <app-todo [todo]="todo"></app-todo>
+  <div *ngFor="let todo of todos" class="list" >
+    <div class="done">
+      <input type="checkbox" (click)="toggleTodo(todo)"> <label>{{todo.comment}}</label>
     </div>
+    <button class="remove" (click)="removeTodo(todo)">REMOVE</button>
+  </div>
+  <button class="checkAll" (click)="checkAll(todos)">CHECK ALL</button>
 </div>
 
 <!--1. 삭제, 중요 기능 구현하기-->

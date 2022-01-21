@@ -13,8 +13,8 @@ export class TodosComponent implements OnInit {
 
   constructor() {
     this.todos = [
-      {completed: false, comment: "운동하기", important:false, day: this.today.toLocaleDateString()},
-      {completed: false, comment: "공부하기", important:false, day: this.today.toLocaleDateString()}
+      {_id: 1, completed: false, comment: "운동하기", important:false, day: this.today.toLocaleDateString()},
+      {_id: 2, completed: false, comment: "공부하기", important:false, day: this.today.toLocaleDateString()}
     ]
   }
 
@@ -22,15 +22,32 @@ export class TodosComponent implements OnInit {
   }
 
   addTodo(text: string){
-    this.todos.push({
-      completed: false,
-      comment: text,
-      important: false,
-      day: this.today.toLocaleDateString(),
-    });
+    if(text.length >= 1)
+      this.todos.push({
+        _id: this.todos.length,
+        completed: false,
+        comment: text,
+        important: false,
+        day: this.today.toLocaleDateString(),
+      });
   }
 
   calTodo(): number{
     return this.todos.filter(task => !task.completed).length;
+  }
+
+  removeTodo(todo:any){
+    let idx = this.todos.findIndex(function(item){
+      return item._id === todo._id;
+    });
+    this.todos.splice(idx,1);
+  }
+
+  toggleTodo(todo:any){
+    todo.completed = !todo.completed
+  }
+
+  checkAll(todo:any){
+
   }
 }
