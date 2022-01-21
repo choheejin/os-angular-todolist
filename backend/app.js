@@ -32,4 +32,9 @@ app.use('/auth', authRouter);
 app.use(notFound);
 app.use(errorHandler);
 
+
+// PORT = 8080
+// DB_ADRESS = 'mongodb://wnstjd4778:!sk3693690@127.0.0.1:27017/admin'
+// JWT_SECRET = "안녕"
+
 module.exports = app;
