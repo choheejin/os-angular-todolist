@@ -70,7 +70,6 @@ const getImportantTodo = asyncHandler(async (req, res, next) => {
 
 // 해당 월 할일 개수 가져오기
 const getTodoCountByMonth = asyncHandler(async (req, res, next) => {
-    console.log("통과");
     const month = req.query.month;
     const year = req.query.year;
     const count = await todo.find({'month': month, 'year':year}).count();
