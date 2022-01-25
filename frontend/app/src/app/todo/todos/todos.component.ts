@@ -47,7 +47,15 @@ export class TodosComponent implements OnInit {
     todo.completed = !todo.completed
   }
 
-  checkAll(todo:any){
+  removeAll(todos:any){
+    this.todos.splice(0,this.todos.length);
+  }
+
+  checkedAll(todos:any){
+    document.querySelectorAll('.check').forEach((item) => item.setAttribute("checked", "true"));
+  }
+
+  deleteComplete(todos:any){
 
   }
 }

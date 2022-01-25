@@ -65,9 +65,9 @@
   text-decoration: line-through;
 }
 
-.checkAll {
+.removeAll, .deleteComplete, .checkedAll {
   margin-top: 20px;
-  width: 100px;
+  width: 120px;
   height: 40px;
 }
 

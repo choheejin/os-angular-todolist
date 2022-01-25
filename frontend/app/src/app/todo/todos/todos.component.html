@@ -20,11 +20,13 @@
 
   <div *ngFor="let todo of todos" class="list" >
     <div class="done">
-      <input type="checkbox" (click)="toggleTodo(todo)"> <label>{{todo.comment}}</label>
+      <input type="checkbox" class="check" (click)="toggleTodo(todo)"> <label>{{todo.comment}}</label>
     </div>
     <button class="remove" (click)="removeTodo(todo)">REMOVE</button>
   </div>
-  <button class="checkAll" (click)="checkAll(todos)">CHECK ALL</button>
+  <button class="removeAll" (click)="removeAll(todos)">REMOVE ALL</button>
+  <button class="checkedAll" (click)="checkedAll(todos)">check ALL</button>
+  <button class="deleteComplete" (click)="deleteComplete(todos)">REMOVE COMPLETE</button>
 </div>
 
 <!--1. 삭제, 중요 기능 구현하기-->
