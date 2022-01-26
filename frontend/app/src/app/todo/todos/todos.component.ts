@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Todo} from "../share/todo.model";
+import { Todo } from "../share/todo.model";
+import { TodoService } from '../service/todo.service';
 
 @Component({
   selector: 'app-todos',
@@ -8,28 +9,21 @@ import {Todo} from "../share/todo.model";
 })
 export class TodosComponent implements OnInit {
   newText = '';
-  todos: Todo[];
+  todos: Todo[] = [];
   today = new Date();
 
-  constructor() {
-    this.todos = [
-      {_id: 1, completed: false, comment: "운동하기", important:false, day: this.today.toLocaleDateString()},
-      {_id: 2, completed: false, comment: "공부하기", important:false, day: this.today.toLocaleDateString()}
-    ]
+  constructor(private todoService: TodoService) {
   }
 
   ngOnInit(): void {
+    // this.todoService
+    //   .getTodayTodo()
+    //   .subscribe(data => this.todos = data);
   }
 
   addTodo(text: string){
     if(text.length >= 1)
-      this.todos.push({
-        _id: this.todos.length,
-        completed: false,
-        comment: text,
-        important: false,
-        day: this.today.toLocaleDateString(),
-      });
+      // this.todoService.addTask({_id: this.})
   }
 
   calTodo(): number{
