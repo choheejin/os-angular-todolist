@@ -3,7 +3,14 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Todo } from "../share/todo.model"
+
+
 const URL = '/todo';
+const ShareDate = {
+  "comment": "운동하기",
+  "day": "2022-01-27"
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,33 +18,34 @@ const URL = '/todo';
 export class TodoService {
   constructor(private http: HttpClient){}
 
-  getSomedayTodo():Observable<Task[]>{
-    return this.http.get<Task[]>(URL + '/day');
+  // getSomedayTodo(date : string):Observable<Todo[]>{
+  //   return this.http.get<Todo[]>(URL +'/day?day='+date);
+  // }
+
+  getTodayTodo():Observable<Todo[]>{
+    return this.http.get<Todo[]>(URL + '/today');
   }
 
-  getTodayTodo():Observable<Task[]>{
-    return this.http.get<Task[]>(URL + '/today');
+  getCmpTodayTodo():Observable<Todo[]>{
+    return this.http.get<Todo[]>(URL + '/today/complited');
   }
 
-  getCmpTodayTodo():Observable<Task[]>{
-    return this.http.get<Task[]>(URL + '/today/complited');
+  getNotCmpTodayTodo():Observable<Todo[]>{
+    return this.http.get<Todo[]>(URL + '/today/notComplited');
   }
 
-  getNotCmpTodayTodo():Observable<Task[]>{
-    return this.http.get<Task[]>(URL + '/today/notComplited');
-  }
-
-  getCompletedTodo(task: Todo):Observable<Task[]>{
-    return this.http.get<Task[]>(URL + '/completed' + task._id);
+  getCompletedTodo(task: Todo):Observable<Todo[]>{
+    return this.http.get<Todo[]>(URL + '/completed' + task._id);
   }
 
 
-  addTask(task: Todo):Observable<Todo>{
-    return this.http.post<Todo>(URL, task, {
+  addTask(data: { comment: string; _id: number; completed: boolean; day: string }):Observable<Todo>{
+    console.log("성공");
+    return this.http.post<Todo>(URL, data, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
-    })
+    });
   }
 
   editTodo(task: Todo):Observable<Todo[]>{

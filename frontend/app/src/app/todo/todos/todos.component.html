@@ -1,6 +1,6 @@
 <div class="nav">
   <ul>
-    <li id="date">{{ today | date:'YY년 M월 d일' }}</li>
+    <li id="date">{{ day | date:'YY년 M월 d일' }}</li>
     <li><a href="">MyPage</a></li>
     <li><a href="">할 일</a></li>
     <li><a href="">중요</a></li>
@@ -9,6 +9,7 @@
 </div>
 
 <div class="container">
+  <input type="button" (click)="getTodo()">
   <div class="title">
     <h1>할 일</h1>
     <h3>할 일 {{calTodo()}}개 남음</h3>
@@ -20,13 +21,13 @@
 
   <div *ngFor="let todo of todos" class="list" >
     <div class="done">
-      <input type="checkbox" class="check" (click)="toggleTodo(todo)"> <label>{{todo.comment}}</label>
+      <input type="checkbox" class="check" [(ngModel)]="todo.completed" > <label>{{todo.comment}}</label>
     </div>
-    <button class="remove" (click)="removeTodo(todo)">REMOVE</button>
+<!--    <button class="remove" (click)="removeTodo(todo)">REMOVE</button>-->
   </div>
-  <button class="removeAll" (click)="removeAll(todos)">REMOVE ALL</button>
+<!--  <button class="removeAll" (click)="removeAll(todos)">REMOVE ALL</button>-->
   <button class="checkedAll" (click)="checkedAll(todos)">check ALL</button>
-  <button class="deleteComplete" (click)="deleteComplete(todos)">REMOVE COMPLETE</button>
+<!--  <button class="deleteComplete" (click)="deleteComplete(todos)">REMOVE COMPLETE</button>-->
 </div>
 
 <!--1. 삭제, 중요 기능 구현하기-->

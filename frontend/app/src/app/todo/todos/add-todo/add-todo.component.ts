@@ -48,5 +48,4 @@ export class AddTodoComponent implements OnInit {
     this.newText = '';
   }
 
-
 }
