@@ -6,10 +6,12 @@ import { Todo } from "../share/todo.model"
 
 
 const URL = '/todo';
-const ShareDate = {
-  "comment": "운동하기",
-  "day": "2022-01-27"
-}
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    Authorization: 'my-auth-token'
+  })
+};
 
 
 @Injectable({
@@ -41,11 +43,7 @@ export class TodoService {
 
   addTask(data: { comment: string; _id: number; completed: boolean; day: string }):Observable<Todo>{
     console.log("성공");
-    return this.http.post<Todo>(URL, data, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    });
+    return this.http.post<Todo>(URL, data, httpOptions);
   }
 
   editTodo(task: Todo):Observable<Todo[]>{
@@ -57,5 +55,12 @@ export class TodoService {
   deleteTask(id: number){
     return this.http.delete(URL + '/' + id)
       .pipe(map((res:any) => res));
+  }
+
+  updateTodo(task: Todo): Observable<Todo[]> {
+    httpOptions.headers =
+      httpOptions.headers.set('Authorization', 'my-new-auth-token');
+
+    return this.http.put<Todo[]>(URL + '/' + task._id, task, httpOptions);
   }
 }

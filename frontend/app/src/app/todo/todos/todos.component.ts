@@ -20,8 +20,7 @@ export class TodosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.todoService
-    //   .getSomedayTodo(this.day).subscribe(data => console.log(data));
+    this.todoService.getTodayTodo().subscribe((data) => this.todos = data);
   }
 
   addTodo(text: string){
