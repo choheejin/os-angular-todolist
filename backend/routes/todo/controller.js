@@ -3,12 +3,13 @@ const { createResponse }= require('../../utils/response');
 const asyncHandler = require('express-async-handler');
 const {SERVER_ERROR} = require('../../errors/index');
 const moment = require('moment-timezone');
-const { get } = require('express/lib/response');
 moment.tz.setDefault("Asia/Seoul"); 
 
 // todo 생성
 const createTodo = asyncHandler(async (req, res, next) => {
     // req.body.user_email = res.locals.email;
+    const day = moment().startOf('day').add(9, 'hours');
+    req.body.day = day;
     const result = await todo.create(req.body);
     res.json(createResponse(res, result));
 });
@@ -28,8 +29,8 @@ const deleteTodo = asyncHandler(async(req, res, next) => {
 
 //오늘 날짜인 todo 모두(끝냈는지 안끝냈는지 상관없음) 가져오기
 const getAllTodayTodo = asyncHandler(async (req, res, next) => {
-    const start = moment().startOf('day');
-    const end = moment().startOf('day').add(1, "days");
+    const start = moment().startOf('day').add(9, 'hours');
+    const end = moment().startOf('day').add(1, "days").add(9, 'hours');
     console.log(start);
     console.log(end);
     const result = await todo.find({day : {$gte : start, $lt : end}});
@@ -40,20 +41,16 @@ const getAllTodayTodo = asyncHandler(async (req, res, next) => {
 
 //오늘 날짜인 끝내지 못한 todo 가져오기
 const getNotCompletedTodayTodo = asyncHandler(async (req, res, next) => {
-    const start = moment().startOf('day');
-    const end = moment().startOf('day').add(1, "days");
-    console.log(start);
-    console.log(end);
+    const start = moment().startOf('day').add(9, 'hours');
+    const end = moment().startOf('day').add(1, "days").add(9, 'hours');
     const result = await todo.find({day : {$gte : start, $lt : end}, completed : false});
     res.json(createResponse(res, result));
 });
 
 //오늘 날짜인 끝낸 todo 가져오기
 const getCompletedTodayTodo = asyncHandler(async (req, res, next) => {
-    const start = moment().startOf('day');
-    const end = moment().startOf('day').add(1, "days");
-    console.log(start);
-    console.log(end);
+    const start = moment().startOf('day').add(9, 'hours');;
+    const end = moment().startOf('day').add(1, "days").add(9, 'hours');;
     const result = await todo.find({day : {$gte : start, $lt : end}, completed : true});
     res.json(createResponse(res, result));
 });
@@ -67,8 +64,8 @@ const updateCompletedById = asyncHandler(async (req, res, next) => {
 
 // 해당 날짜의 할일 가져오기
 const getTodoByDay = asyncHandler(async (req, res, next) => {
-    const start = moment(req.query.day).startOf('day');
-    const end = moment(req.query.day).startOf('day').add(1, "days");
+    const start = moment(req.query.day).startOf('day').add(9, 'hours');;
+    const end = moment(req.query.day).startOf('day').add(1, "days").add(9, 'hours');;
     console.log(start);
     console.log(end);
     const result = await todo.find({day : {$gte : start, $lt : end}});
