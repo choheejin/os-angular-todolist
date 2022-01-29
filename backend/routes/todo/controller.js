@@ -27,33 +27,30 @@ const deleteTodo = asyncHandler(async(req, res, next) => {
     res.json(createResponse(res, ''));
 });
 
-//오늘 날짜인 todo 모두(끝냈는지 안끝냈는지 상관없음) 가져오기
+//오늘 날짜인 조건별 todo 모두 가져오기
 const getAllTodayTodo = asyncHandler(async (req, res, next) => {
-    const start = moment().startOf('day').add(9, 'hours');
-    const end = moment().startOf('day').add(1, "days").add(9, 'hours');
-    console.log(start);
-    console.log(end);
-    const result = await todo.find({day : {$gte : start, $lt : end}});
-    console.log(result);
+    const day = moment().startOf('day').add(9, 'hours');
+    req.query.day = day;
+    const result = await todo.find(req.query);
     res.json(createResponse(res, result));
 });
 
 
-//오늘 날짜인 끝내지 못한 todo 가져오기
-const getNotCompletedTodayTodo = asyncHandler(async (req, res, next) => {
-    const start = moment().startOf('day').add(9, 'hours');
-    const end = moment().startOf('day').add(1, "days").add(9, 'hours');
-    const result = await todo.find({day : {$gte : start, $lt : end}, completed : false});
-    res.json(createResponse(res, result));
-});
+// //오늘 날짜인 끝내지 못한 todo 가져오기
+// const getNotCompletedTodayTodo = asyncHandler(async (req, res, next) => {
+//     const start = moment().startOf('day').add(9, 'hours');
+//     const end = moment().startOf('day').add(1, "days").add(9, 'hours');
+//     const result = await todo.find({day : {$gte : start, $lt : end}, completed : false});
+//     res.json(createResponse(res, result));
+// });
 
-//오늘 날짜인 끝낸 todo 가져오기
-const getCompletedTodayTodo = asyncHandler(async (req, res, next) => {
-    const start = moment().startOf('day').add(9, 'hours');;
-    const end = moment().startOf('day').add(1, "days").add(9, 'hours');;
-    const result = await todo.find({day : {$gte : start, $lt : end}, completed : true});
-    res.json(createResponse(res, result));
-});
+// //오늘 날짜인 끝낸 todo 가져오기
+// const getCompletedTodayTodo = asyncHandler(async (req, res, next) => {
+//     const start = moment().startOf('day').add(9, 'hours');;
+//     const end = moment().startOf('day').add(1, "days").add(9, 'hours');;
+//     const result = await todo.find({day : {$gte : start, $lt : end}, completed : true});
+//     res.json(createResponse(res, result));
+// });
 
 // 해당 할일 끝냈는지 체크
 const updateCompletedById = asyncHandler(async (req, res, next) => {
@@ -62,37 +59,44 @@ const updateCompletedById = asyncHandler(async (req, res, next) => {
     res.json(createResponse(res, result));
 });
 
-// 해당 날짜의 할일 가져오기
-const getTodoByDay = asyncHandler(async (req, res, next) => {
-    const start = moment(req.query.day).startOf('day').add(9, 'hours');;
-    const end = moment(req.query.day).startOf('day').add(1, "days").add(9, 'hours');;
-    console.log(start);
-    console.log(end);
-    const result = await todo.find({day : {$gte : start, $lt : end}});
-    res.json(createResponse(res, result));
-});
+// // 해당 날짜의 할일 가져오기
+// const getTodoByDay = asyncHandler(async (req, res, next) => {
+//     const start = moment(req.query.day).startOf('day').add(9, 'hours');;
+//     const end = moment(req.query.day).startOf('day').add(1, "days").add(9, 'hours');;
+//     console.log(start);
+//     console.log(end);
+//     const result = await todo.find({day : {$gte : start, $lt : end}});
+//     res.json(createResponse(res, result));
+// });
 
-const getNotCompletedTodo = asyncHandler(async (req, res, next) => {
+// const getNotCompletedTodo = asyncHandler(async (req, res, next) => {
     
-    const result = await todo.find({completed: false});
+//     const result = await todo.find({completed: false});
+//     res.json(createResponse(res, result));
+// });
+
+// // 모든 todo 가져오기
+// const getAllTodo = asyncHandler(async (req, res, next) => {
+//     const result = await todo.find();
+//     res.json(createResponse(res, result));
+// });
+
+// 조건별 todo 가져오기
+const getTodo = asyncHandler(async (req, res, next) => {
+    const result = await todo.find(req.query);
     res.json(createResponse(res, result));
 });
 
-// 모든 todo 가져오기
-const getAllTodo = asyncHandler(async (req, res, next) => {
-    const result = await todo.find();
-    res.json(createResponse(res, result));
-});
 
 
-
-exports.getTodoByDay = getTodoByDay;
+// exports.getTodoByDay = getTodoByDay;
 exports.createTodo = createTodo;
 exports.updateTodo = updateTodo;
 exports.deleteTodo = deleteTodo;
 exports.getAllTodayTodo = getAllTodayTodo;
 exports.updateCompletedById = updateCompletedById;
-exports.getNotCompletedTodayTodo = getNotCompletedTodayTodo;
-exports.getCompletedTodayTodo = getCompletedTodayTodo;
-exports.getNotCompletedTodo = getNotCompletedTodo;
-exports.getAllTodo = getAllTodo;
+//exports.getNotCompletedTodayTodo = getNotCompletedTodayTodo;
+//exports.getCompletedTodayTodo = getCompletedTodayTodo;
+//exports.getNotCompletedTodo = getNotCompletedTodo;
+//exports.getAllTodo = getAllTodo;
+exports.getTodo = getTodo;
