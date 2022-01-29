@@ -12,7 +12,7 @@ import {HttpClient} from "@angular/common/http";
 export class TodosComponent implements OnInit {
   dt = new Date();
   _id: number;
-  newText = '';
+  newText: string;
   todos: Todo[] = [];
   day = this.dt.getFullYear()+'-'+(this.dt.getMonth()+1)+'-'+this.dt.getDate();
 
@@ -20,38 +20,37 @@ export class TodosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.todoService.getTodayTodo().subscribe((data) => this.todos = data);
+    this.newText = '';
+    this.todoService.getAllTodo().subscribe(Res => this.todos = Res.data);
   }
 
-  addTodo(text: string){
+  addTodo(){
     console.log("작동중");
-    if(text.length >= 1){
+    if(this.newText.length >= 1){
       this.todoService.addTask({
-        _id: this._id,
-        completed: false,
-        comment: text,
+        comment: this.newText,
         day: this.day
       });
       this.todos.push({
         _id: this._id,
         completed: false,
-        comment: text,
+        comment: this.newText,
         day: this.day
       });
+      this.newText = '';
       this.ngOnInit();
     }
-
-
   }
 
   getTodo():void{
-    this.http.get('/todo/day?day=' + this.day).subscribe((res)=>{
-      console.log(res);
-    })
+    // this.todoService.getAllTodo().subscribe((data) => data.forEach(item => console.log(item)));
   }
-  calTodo(): number{
-    return this.todos.filter(data => !data.completed).length;
-  }
+  // calTodo(): number{
+  //   if(this.todos.length === 0)
+  //     return 0;
+  //   else
+  //     return this.todos.filter(data => !data.completed).length;
+  // }
 
   // removeTodo(todo:any){
   //   let idx = this.todos.findIndex(function(item){
@@ -74,7 +73,6 @@ export class TodosComponent implements OnInit {
     else
       this.todos.forEach(data => data.completed = true);
   }
-  //
   // deleteComplete(todos:any){
   //
   // }

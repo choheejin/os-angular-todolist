@@ -12,11 +12,12 @@
   <input type="button" (click)="getTodo()">
   <div class="title">
     <h1>할 일</h1>
-    <h3>할 일 {{calTodo()}}개 남음</h3>
+<!--    <h3>할 일 {{calTodo()}}개 남음</h3>-->
   </div>
 
   <div class="addTodo">
-    <app-add-todo (onTodoAdded)="addTodo($event)"></app-add-todo>
+    <input type="text" [(ngModel)]="newText" (keyup.enter)="addTodo()">
+<!--    <app-add-todo (onTodoAdded)="addTodo($event)"></app-add-todo>-->
   </div>
 
   <div *ngFor="let todo of todos" class="list" >

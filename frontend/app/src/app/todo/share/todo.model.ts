@@ -4,3 +4,10 @@ export class Todo {
   completed: boolean;
   day: string;
 }
+
+export class Res {
+  success : boolean;
+  message : string;
+  status : number;
+  data : Todo[] = [];
+}

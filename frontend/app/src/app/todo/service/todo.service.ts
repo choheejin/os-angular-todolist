@@ -3,9 +3,10 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Todo } from "../share/todo.model"
+import { Res } from "../share/todo.model";
 
 
-const URL = '/todo';
+const URL = 'httP://localhost:8080/todo';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
@@ -24,6 +25,10 @@ export class TodoService {
   //   return this.http.get<Todo[]>(URL +'/day?day='+date);
   // }
 
+  getAllTodo():Observable<Res>{
+    return this.http.get<Res>(URL + '/all');
+  }
+
   getTodayTodo():Observable<Todo[]>{
     return this.http.get<Todo[]>(URL + '/today');
   }
@@ -41,9 +46,10 @@ export class TodoService {
   }
 
 
-  addTask(data: { comment: string; _id: number; completed: boolean; day: string }):Observable<Todo>{
-    console.log("성공");
-    return this.http.post<Todo>(URL, data, httpOptions);
+  addTask(data: { comment: string; day: string }):Observable<object>{
+    httpOptions.headers =
+      httpOptions.headers.set('Authorization', 'my-new-auth-token');
+    return this.http.post<object>(URL, data, httpOptions);
   }
 
   editTodo(task: Todo):Observable<Todo[]>{
