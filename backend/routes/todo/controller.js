@@ -8,7 +8,7 @@ moment.tz.setDefault("Asia/Seoul");
 // todo 생성
 const createTodo = asyncHandler(async (req, res, next) => {
     // req.body.user_email = res.locals.email;
-    const day = new Date();
+    const day = moment().add(9, 'hours');
     req.body.day = day;
     const result = await todo.create(req.body);
     res.json(createResponse(res, result));
