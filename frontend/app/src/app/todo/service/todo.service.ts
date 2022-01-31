@@ -47,9 +47,7 @@ export class TodoService {
 
 
   addTask(data: { comment: string; day: string }):Observable<object>{
-    httpOptions.headers =
-      httpOptions.headers.set('Authorization', 'my-new-auth-token');
-    return this.http.post<object>(URL, data, httpOptions);
+    return this.http.post<object>(URL, data);
   }
 
   editTodo(task: Todo):Observable<Todo[]>{

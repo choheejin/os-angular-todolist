@@ -30,7 +30,7 @@ export class TodosComponent implements OnInit {
       this.todoService.addTask({
         comment: this.newText,
         day: this.day
-      });
+      }).subscribe();
       this.todos.push({
         _id: this._id,
         completed: false,
