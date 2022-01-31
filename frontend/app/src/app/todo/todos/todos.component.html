@@ -1,6 +1,6 @@
 <div class="nav">
   <ul>
-    <li id="date">{{ day | date:'YY년 M월 d일' }}</li>
+    <li id="date">{{ day | date: 'YY년 M월 d일' }}</li>
     <li><a href="">MyPage</a></li>
     <li><a href="">할 일</a></li>
     <li><a href="">중요</a></li>
@@ -9,26 +9,27 @@
 </div>
 
 <div class="container">
-  <input type="button" (click)="getTodo()">
   <div class="title">
     <h1>할 일</h1>
-<!--    <h3>할 일 {{calTodo()}}개 남음</h3>-->
+    <h3>할 일 {{calTodo()}}개 남음</h3>
   </div>
 
   <div class="addTodo">
-    <input type="text" [(ngModel)]="newText" (keyup.enter)="addTodo()">
-<!--    <app-add-todo (onTodoAdded)="addTodo($event)"></app-add-todo>-->
+    <button [(ngModel)]="newText" (click)="addTodo()" ngDefaultControl>+</button>
+    <input type="text" [(ngModel)]="newText" ngDefaultControl (keyup.enter)="addTodo()">
   </div>
 
   <div *ngFor="let todo of todos" class="list" >
-    <div class="done">
-      <input type="checkbox" class="check" [(ngModel)]="todo.completed" > <label>{{todo.comment}}</label>
+    <div class="task">
+      <input type="checkbox" class="check" [(ngModel)]="todo.completed" (click)="toggleTodo(todo)" > <label>{{todo.comment}}</label>
     </div>
-<!--    <button class="remove" (click)="removeTodo(todo)">REMOVE</button>-->
+    <button (click)="deleteTodo(todo)">Delete</button>
   </div>
-<!--  <button class="removeAll" (click)="removeAll(todos)">REMOVE ALL</button>-->
-  <button class="checkedAll" (click)="checkedAll(todos)">check ALL</button>
-<!--  <button class="deleteComplete" (click)="deleteComplete(todos)">REMOVE COMPLETE</button>-->
+  <div class="buttonZip">
+    <button class="checkedAll" (click)="checkedAll()">Check ALL</button>
+    <button class="deleteAll" (click)="deleteAll()">Delete ALL</button>
+    <button class="deleteComplete" (click)="deleteComplete()">REMOVE COMPLETE</button>
+  </div>
 </div>
 
 <!--1. 삭제, 중요cd 기능 구현하기-->

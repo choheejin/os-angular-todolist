@@ -36,9 +36,36 @@
   color: #6209b7;
 }
 
-
 #date{
   font-size: xx-large;
+}
+
+.addTodo button{
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  margin-right: 5px;
+  border: none;
+  background-color: blueviolet;
+  color: white;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.addTodo input{
+  height: 30px;
+  display: inline-block;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.addTodo hr{
+  color: darkgray;
+  width : 50%;
+}
+
+.list button{
+  height: 28px;
 }
 
 .list{
@@ -52,22 +79,28 @@
 }
 
 
-.done {
+.task {
   margin-right: 5px;
-
+  margin-top: 2px;
 }
 
-.done label{
+.task label{
   margin-left: 10px;
 }
 
-.done input:checked + label {
+.task input:checked + label {
   text-decoration: line-through;
 }
 
-.removeAll, .deleteComplete, .checkedAll {
+.buttonZip{
+  display: flex;
+  align-items: stretch;
+}
+
+.deleteAll, .checkedAll, .deleteComplete {
+  margin-left: 10px;
   margin-top: 20px;
-  width: 120px;
-  height: 40px;
+  width: 130px;
+  height: 50px;
 }
 

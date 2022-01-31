@@ -12,7 +12,7 @@ import {HttpClient} from "@angular/common/http";
 export class TodosComponent implements OnInit {
   dt = new Date();
   _id: number;
-  newText: string;
+  newText = '';
   todos: Todo[] = [];
   day = this.dt.getFullYear()+'-'+(this.dt.getMonth()+1)+'-'+this.dt.getDate();
 
@@ -22,6 +22,7 @@ export class TodosComponent implements OnInit {
   ngOnInit(): void {
     this.newText = '';
     this.todoService.getAllTodo().subscribe(Res => this.todos = Res.data);
+    this.calTodo();
   }
 
   addTodo(){
@@ -42,38 +43,38 @@ export class TodosComponent implements OnInit {
     }
   }
 
-  getTodo():void{
-    // this.todoService.getAllTodo().subscribe((data) => data.forEach(item => console.log(item)));
+  calTodo(): number{
+    if(this.todos.length === 0)
+      return 0;
+    else
+      return this.todos.filter(data => !data.completed).length;
   }
-  // calTodo(): number{
-  //   if(this.todos.length === 0)
-  //     return 0;
-  //   else
-  //     return this.todos.filter(data => !data.completed).length;
-  // }
 
-  // removeTodo(todo:any){
-  //   let idx = this.todos.findIndex(function(item){
-  //     return item._id === todo._id;
-  //   });
-  //   this.todos.splice(idx,1);
-  // }
-  //
-  // toggleTodo(todo:any){
-  //   todo.completed = !todo.completed
-  // }
-  //
-  // removeAll(todos:any){
-  //   this.todos.splice(0,this.todos.length);
-  // }
-  //
-  checkedAll(todos:any){
-    if(this.todos.filter(data => !data.completed).length === 0)
+  toggleTodo(todo:any){
+    todo.completed = !todo.completed
+  }
+
+  deleteTodo(todo:any){
+    this.todoService.deleteTodo(todo._id);
+    this.ngOnInit();
+  }
+
+  deleteAll(){
+    this.todos.forEach(todos => this.todoService.deleteTodo(todos._id));
+    this.ngOnInit();
+  }
+
+  checkedAll(){
+    if(this.todos.filter(data => !data.completed).length === 0){
       this.todos.forEach(data => data.completed = false);
+    }
     else
       this.todos.forEach(data => data.completed = true);
   }
-  // deleteComplete(todos:any){
-  //
-  // }
+
+  deleteComplete(){
+    let completeTask = this.todos.filter(data => data.completed);
+    completeTask.forEach(todo => this.todoService.deleteTodo(todo._id));
+    this.ngOnInit();
+  }
 }

@@ -21,30 +21,13 @@ const httpOptions = {
 export class TodoService {
   constructor(private http: HttpClient){}
 
-  // getSomedayTodo(date : string):Observable<Todo[]>{
-  //   return this.http.get<Todo[]>(URL +'/day?day='+date);
-  // }
+  getSomedayTodo(date : string):Observable<Todo[]>{
+    return this.http.get<Todo[]>(URL +'/day?day='+date);
+  }
 
   getAllTodo():Observable<Res>{
-    return this.http.get<Res>(URL + '/all');
+    return this.http.get<Res>(URL);
   }
-
-  getTodayTodo():Observable<Todo[]>{
-    return this.http.get<Todo[]>(URL + '/today');
-  }
-
-  getCmpTodayTodo():Observable<Todo[]>{
-    return this.http.get<Todo[]>(URL + '/today/complited');
-  }
-
-  getNotCmpTodayTodo():Observable<Todo[]>{
-    return this.http.get<Todo[]>(URL + '/today/notComplited');
-  }
-
-  getCompletedTodo(task: Todo):Observable<Todo[]>{
-    return this.http.get<Todo[]>(URL + '/completed' + task._id);
-  }
-
 
   addTask(data: { comment: string; day: string }):Observable<object>{
     return this.http.post<object>(URL, data);
@@ -56,15 +39,8 @@ export class TodoService {
       .pipe(map((response: any) => response));
   }
 
-  deleteTask(id: number){
+  deleteTodo(id:number){
     return this.http.delete(URL + '/' + id)
-      .pipe(map((res:any) => res));
-  }
-
-  updateTodo(task: Todo): Observable<Todo[]> {
-    httpOptions.headers =
-      httpOptions.headers.set('Authorization', 'my-new-auth-token');
-
-    return this.http.put<Todo[]>(URL + '/' + task._id, task, httpOptions);
+      .pipe(map((res:any) => res)).subscribe();
   }
 }
