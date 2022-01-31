@@ -16,8 +16,9 @@ const createTodo = asyncHandler(async (req, res, next) => {
 
 //todo 수정
 const updateTodo = asyncHandler(async (req, res, next) => {
-    const result = await todo.findOne({'_id':req.params.id}, req.body);
-    res.json(createResponse(res, result));
+    const result = await todo.findOne({'_id':req.params.id});
+    await todo.updateOne({'_id':result._id}, req.body);
+    res.json(createResponse(res));
 });
 
 //todo 삭제
