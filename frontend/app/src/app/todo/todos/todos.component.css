@@ -1,7 +1,10 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
 .container {
   display: flex;
   flex-direction: column;
-  padding-left: 30px;
+  padding-left: 25px;
+  padding-top: 30px;
 }
 
 .nav {
@@ -33,55 +36,55 @@
 }
 
 .title h3{
-  color: #6209b7;
+  color: #007afd;
+  font-weight: bold;
 }
 
 #date{
   font-size: xx-large;
 }
 
-.addTodo button{
-  width: 30px;
-  height: 30px;
-  border-radius: 30px;
-  margin-right: 5px;
-  border: none;
-  background-color: blueviolet;
-  color: white;
-  font-weight: bold;
-  font-size: 19px;
+.add{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.addTodo{
+  display: flex;
+  align-items: baseline;
 }
 
 .addTodo input{
-  height: 30px;
+  height: 40px;
   display: inline-block;
   font-size: 18px;
   margin-bottom: 10px;
 }
+.addTodo button{
+  margin-right: 10px;
+  border-radius: 100%;
+  font-weight: bold;
+  font-size: large;
+  text-align: center;
+}
 
 .addTodo hr{
   color: darkgray;
-  width : 50%;
 }
 
 .list button{
-  height: 28px;
+  margin-right: 5px;
 }
 
 .list{
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   margin-top: 10px;
   border-bottom: 1px solid gray;
   border-top: 1px solid gray;
   padding: 10px 10px;
-  margin-right: 750px;
-}
-
-
-.task {
-  margin-right: 5px;
-  margin-top: 2px;
 }
 
 .task label{
@@ -95,6 +98,11 @@
 .buttonZip{
   display: flex;
   align-items: stretch;
+  margin-bottom: 50px;
+}
+
+.taskDate{
+  margin-right: 10px;
 }
 
 .deleteAll, .checkedAll, .deleteComplete {
@@ -104,3 +112,10 @@
   height: 50px;
 }
 
+#edit{
+  display: none;
+}
+
+#edit #button-addon1{
+  margin-left: 10px;
+}

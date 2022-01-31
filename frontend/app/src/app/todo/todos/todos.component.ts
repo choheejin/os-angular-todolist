@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from "../share/todo.model";
 import { TodoService } from '../service/todo.service';
-import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-todos',
@@ -14,12 +13,16 @@ export class TodosComponent implements OnInit {
   _id: number;
   newText = '';
   todos: Todo[] = [];
+  editIdx : number;
+  editText = '';
   day = this.dt.getFullYear()+'-'+(this.dt.getMonth()+1)+'-'+this.dt.getDate();
 
-  constructor(private todoService: TodoService, private http:HttpClient) {
+  constructor(private todoService: TodoService) {
   }
 
   ngOnInit(): void {
+    this.editIdx = 0;
+    this.editText = '';
     this.newText = '';
     this.todoService.getAllTodo().subscribe(Res => this.todos = Res.data);
     this.calTodo();
@@ -51,7 +54,11 @@ export class TodosComponent implements OnInit {
   }
 
   toggleTodo(todo:any){
-    todo.completed = !todo.completed
+    this.todoService.editTodo({
+      comment: todo.comment,
+      _id: todo._id,
+      completed: !todo.completed
+    }).subscribe();
   }
 
   deleteTodo(todo:any){
@@ -65,16 +72,49 @@ export class TodosComponent implements OnInit {
   }
 
   checkedAll(){
-    if(this.todos.filter(data => !data.completed).length === 0){
-      this.todos.forEach(data => data.completed = false);
+    let setCompleted = this.todos.filter(data => !data.completed);
+    if(setCompleted.length === 0){
+      this.todos.forEach(data => this.todoService.makeCompleted({
+        _id: data._id,
+        completed: false
+      }).subscribe());
     }
     else
-      this.todos.forEach(data => data.completed = true);
+      this.todos.forEach(data => this.todoService.makeCompleted({
+        _id: data._id,
+        completed: true
+      }).subscribe());
+    this.ngOnInit();
   }
 
   deleteComplete(){
     let completeTask = this.todos.filter(data => data.completed);
     completeTask.forEach(todo => this.todoService.deleteTodo(todo._id));
     this.ngOnInit();
+  }
+
+  getTodayTodo(){
+    this.todoService.getTodayTodo(this.day).subscribe(data => console.log(data));
+  }
+
+  editTodo(todo:any){
+    const edit = document.getElementById("edit");
+    if (!edit) return;
+    edit.style.display = 'block';
+    this.editIdx = todo._id;
+  }
+
+  submitEdit(){
+    const edit = document.getElementById("edit");
+    if (!edit) return;
+    this.todoService.editTodo({
+      comment: this.editText,
+      _id: this.editIdx,
+      completed: false
+    }).subscribe();
+   this.editText = '';
+   this.editIdx = 0;
+   edit.style.display = 'none';
+   location.reload();
   }
 }

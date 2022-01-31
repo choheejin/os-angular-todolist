@@ -1,3 +1,4 @@
+
 <div class="nav">
   <ul>
     <li id="date">{{ day | date: 'YY년 M월 d일' }}</li>
@@ -14,22 +15,51 @@
     <h3>할 일 {{calTodo()}}개 남음</h3>
   </div>
 
-  <div class="addTodo">
-    <button [(ngModel)]="newText" (click)="addTodo()" ngDefaultControl>+</button>
-    <input type="text" [(ngModel)]="newText" ngDefaultControl (keyup.enter)="addTodo()">
+  <div class="add">
+    <div class="addTodo">
+      <button class="btn btn-primary" type="submit" [(ngModel)]="newText" (click)="addTodo()" ngDefaultControl>+</button>
+      <input type="text" [(ngModel)]="newText" ngDefaultControl (keyup.enter)="addTodo()">
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+        선택하기
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="javascript:void(0)" (click)="getTodayTodo()">Action</a></li>
+        <li><a class="dropdown-item" href="javascript:void(0)" (click)="getTodayTodo()">Another action</a></li>
+        <li><a class="dropdown-item" href="javascript:void(0)" (click)="getTodayTodo()">Something else here</a></li>
+      </ul>
+    </div>
   </div>
 
-  <div *ngFor="let todo of todos" class="list" >
-    <div class="task">
-      <input type="checkbox" class="check" [(ngModel)]="todo.completed" (click)="toggleTodo(todo)" > <label>{{todo.comment}}</label>
+  <div *ngFor="let todo of todos">
+    <div class="list">
+      <div class="task">
+        <input type="checkbox" class="check" [(ngModel)]="todo.completed" (click)="toggleTodo(todo)" > <label>{{todo.comment}}</label>
+      </div>
+      <div>
+        <label class="taskDate">{{todo.day}}</label>
+        <button type="button" class="btn btn-outline-primary"  (click)="editTodo(todo)">Edit</button>
+        <button type="button" class="btn btn-danger" (click)="deleteTodo(todo)">Delete</button>
+      </div>
     </div>
-    <button (click)="deleteTodo(todo)">Delete</button>
   </div>
+
   <div class="buttonZip">
     <button class="checkedAll" (click)="checkedAll()">Check ALL</button>
     <button class="deleteAll" (click)="deleteAll()">Delete ALL</button>
     <button class="deleteComplete" (click)="deleteComplete()">REMOVE COMPLETE</button>
   </div>
+
+  <div id="edit">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="edit Todo" aria-label="Example text with button addon" aria-describedby="button-addon1"
+             [(ngModel)]="editText" ngDefaultControl >
+      <button class="btn btn-outline-secondary" type="button" id="button-addon1" (click)="submitEdit()"
+              [(ngModel)]="editText" ngDefaultControl>Submit</button>
+    </div>
+  </div>
+
 </div>
 
 <!--1. 삭제, 중요cd 기능 구현하기-->
