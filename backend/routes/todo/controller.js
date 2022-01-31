@@ -8,7 +8,7 @@ moment.tz.setDefault("Asia/Seoul");
 // todo 생성
 const createTodo = asyncHandler(async (req, res, next) => {
     // req.body.user_email = res.locals.email;
-    const day = new Date();
+    const day = moment().add(9, 'hours');
     req.body.day = day;
     const result = await todo.create(req.body);
     res.json(createResponse(res, result));
@@ -16,8 +16,9 @@ const createTodo = asyncHandler(async (req, res, next) => {
 
 //todo 수정
 const updateTodo = asyncHandler(async (req, res, next) => {
-    const result = await todo.findOne({'_id':req.params.id}, req.body);
-    res.json(createResponse(res, result));
+    const result = await todo.findOne({'_id':req.params.id});
+    await todo.updateOne({'_id':result._id}, req.body);
+    res.json(createResponse(res));
 });
 
 //todo 삭제
