@@ -3,31 +3,32 @@
 .container {
   display: flex;
   flex-direction: column;
+  width: 80%;
   padding-left: 25px;
   padding-top: 30px;
 }
 
-.nav {
+nav {
   float: left;
-  width: 400px;
+  width: 20%;
   background-color: #eee;
   border-right: 1px solid #ddd;
   display: flex;
   height: 890px;
 }
 
-.nav ul {
+nav ul {
   list-style-type: none;
   margin-top: 65px;
 }
 
-.nav ul li {
+nav ul li {
   font-size: 24px;
   font-weight: bold;
   padding-bottom: 10px;
 }
 
-.nav ul li a{
+nav ul li a{
   text-decoration-line: none;
 }
 

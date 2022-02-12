@@ -1,5 +1,5 @@
 
-<div class="nav">
+<nav>
   <ul>
     <li id="date">{{ day | date: 'YY년 M월 d일' }}</li>
     <li><a href="">MyPage</a></li>
@@ -7,7 +7,7 @@
     <li><a href="">중요</a></li>
     <li><a href="">로그인/회원가입</a></li>
   </ul>
-</div>
+</nav>
 
 <div class="container">
   <div class="title">
@@ -35,12 +35,12 @@
   <div *ngFor="let todo of todos">
     <div class="list">
       <div class="task">
-        <input type="checkbox" class="check" [(ngModel)]="todo.completed" (click)="toggleTodo(todo)" > <label>{{todo.comment}}</label>
+        <input type="checkbox" class="check" [(ngModel)]="todo.completed" (click)="toggleTodo(todo)" > <label class="content">{{todo.comment}}</label>
       </div>
       <div>
         <label class="taskDate">{{todo.day}}</label>
         <button type="button" class="btn btn-outline-primary"  (click)="editTodo(todo)">Edit</button>
-        <button type="button" class="btn btn-danger" (click)="deleteTodo(todo)">Delete</button>
+        <button type="button" class="btn btn-danger" name="delete" (click)="deleteTodo(todo)">Delete</button>
       </div>
     </div>
   </div>

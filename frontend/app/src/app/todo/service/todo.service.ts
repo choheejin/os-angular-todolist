@@ -40,7 +40,7 @@ export class TodoService {
 
   deleteTodo(id:number){
     return this.http.delete(URL + '/' + id)
-      .pipe(map((res:any) => res)).subscribe();
+      .pipe(map((res:any) => res));
   }
 
   makeCompleted(task: {_id: number; completed: boolean}):Observable<Todo>{
